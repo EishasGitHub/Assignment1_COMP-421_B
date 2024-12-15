@@ -1,0 +1,26 @@
+List of OpenSSL Commands:
+
+1) Generate a private and public key
+
+	>openssl genrsa -out private_key.pem 3210
+	>openssl rsa -in private_key.pem -pubout -out public_key.pem
+
+2) Generate a Certificate Signing Request (CSR)
+
+	>openssl req -new -key private_key.pem -out request.csr
+
+3) Create a self-signed certificate
+
+	>openssl x509 -req -days 365 -in request.csr -signkey private_key.pem -out self_signed_certificate.crt
+
+4) Act as a Certification Authority (CA) to issue certificates
+
+	>openssl genrsa -out ca_private_key.pem 3210
+	>openssl req -x509 -new -nodes -key ca_private_key.pem -sha256 -days 365 -out ca_certificate.pem
+	>openssl x509 -req -in request.csr -CA ca_certificate.pem -CAkey ca_private_key.pem -CAcreateserial -out issued_certificate.crt -days 365 -sha256
+
+
+5) Added Command for Verifying the Cerificates
+
+	>openssl x509 -in self_signed_certificate.crt -text -noout
+	>openssl verify -CAfile ca_certificate.pem issued_certificate.crt
